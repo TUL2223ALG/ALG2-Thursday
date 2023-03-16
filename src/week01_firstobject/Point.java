@@ -27,6 +27,11 @@ public class Point {
     public double getX(){
         return x;
     }
+
+    public double getY() {
+        return y;
+    }
+    
     /*
     //setr
     public void setX(double x){
@@ -38,6 +43,10 @@ public class Point {
     public double distance(){
        //return Math.sqrt(x*x + y*y);
        return Math.hypot(x, y);
+    }
+    
+    public double distanceFrom (Point from){
+        return Math.hypot(this.x - from.x, this.y - from.y);
     }
     
     @Override
