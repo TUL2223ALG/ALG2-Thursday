@@ -8,7 +8,7 @@ public class PointApp {
         double xB = 2;
         double yB = 1;
         
-        //Point pointA = new Point(); //existuje defaultne v kayde tride
+        //Point pointA = new Point(); //existuje defaultne v kazde tride
         Point pointA = new Point(xA, yA);
         System.out.println(pointA.distance());
     

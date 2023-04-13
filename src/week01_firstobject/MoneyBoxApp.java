@@ -1,20 +1,9 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
- */
 package week01_firstobject;
 
-/**
- *
- * @author jana.vitvarova
- */
 public class MoneyBoxApp {
 
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String[] args) {
-        // TODO code application logic here
+
         Moneybox Alice = new Moneybox ("Alice", 5, 2);
         Moneybox Bob = new Moneybox ("Bob");
         Bob.add1Crown(); //opakovat
@@ -47,8 +36,6 @@ public class MoneyBoxApp {
         Bob.delete();
         
         Alice.status();
-        Bob.status();
-    
+        Bob.status(); 
     }
-    
 }

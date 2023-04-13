@@ -1,15 +1,7 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package week02_nextobject;
 
 import java.util.Arrays;
 
-/**
- *
- * @author jana.vitvarova
- */
 public class Polynom {
     private double[] coef; //obracene vsechny koeficienty 2x~3 +4x -1 [-1, 4, 0, 2] 
     
