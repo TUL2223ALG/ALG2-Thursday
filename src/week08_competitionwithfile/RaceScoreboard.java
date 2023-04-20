@@ -1,6 +1,13 @@
-package week05_competition;
+package week08_competitionwithfile;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import week05_competition.*;
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.ArrayList;
 
 public class RaceScoreboard {
     private Runner[] runners;
@@ -15,14 +22,50 @@ public class RaceScoreboard {
         this.Name = Name;
         this.startTime = startTime;
         this.count = 0;
-    }   
+    }
+    
+    public RaceScoreboard(String Name, double startTime) {
+        this.Name = Name;
+        this.startTime = startTime;
+        this.count = 0;
+    }
+    
+    public void loadRegistration(File f) throws IOException{
+        try (BufferedReader br = new BufferedReader(new FileReader(f))) {
+            Runner temp = null;
+            int pocet = 0;
+            do {
+                temp = Runner.loadFromFile(br);
+                pocet++; //bude se pak muset odčíst 1
+            }while(temp!=null);
+
+            this.runners = new Runner[pocet-1];
+            for (int i = 0; i < runners.length; i++) {
+                addRacer(Runner.loadFromFile(br)); //kdyz nactete znova, uz tam nic neni, museli by jste otevrit novy stream
+            }
+        }
+    } 
+    
+    public void saveToFileNames(BufferedWriter bw) throws IOException{
+        for (int i = 0; i < runners.length; i++) {
+            runners[i].saveToFileNames(bw);
+        }
+    }
+    public void saveToFileTimes(BufferedWriter bw) throws IOException{
+        for (int i = 0; i < runners.length; i++) {
+            runners[i].saveToFileTimes(bw);
+        }
+    }
+          
     public void setName(String Name) {
         this.Name = Name;
     }
+    
     public void addRacer(Runner r){
         runners[count] = r;
         count++;
     }
+    
     public void addRacer(String name){
         Runner r = new Runner(name);
         addRacer(r);
@@ -81,7 +124,7 @@ public class RaceScoreboard {
         return displayRunners();
     }
     
-    private String displayRunners(){
+    public String displayRunners(){
         StringBuilder sb = new StringBuilder("");
         for (Runner runner : runners) {
             sb.append(runner).append("\n");
