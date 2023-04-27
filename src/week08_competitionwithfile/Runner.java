@@ -3,6 +3,7 @@ package week08_competitionwithfile;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
+import java.time.LocalDate;
 
 public class Runner implements Comparable<Runner>{
     private String name;
@@ -10,9 +11,41 @@ public class Runner implements Comparable<Runner>{
     private int racerNumber;
     private double startTime;
     private double finishTime;
+    private Gender gender;
+    private int yearOfBirth;
+    private Category category;
+    static int count = 0;
     
     //public static int number=1;
-
+    public Runner (String name, int yearOfBirth, char gender){
+        this.name = checkName(name);
+        this.yearOfBirth = checkYear(yearOfBirth);
+        if(gender == 'm'){
+            this.gender = Gender.MALE;
+        }else{
+            this.gender = Gender.FEMALE;
+        }
+        this.category = Category.getInstance(this.gender, yearOfBirth);
+        count++;
+        this.racerNumber = count;
+    }
+    
+    private int checkYear(int yearOfBirth){
+        int nextYear = LocalDate.now().getYear()+1;
+        if (!(yearOfBirth > 1903 && yearOfBirth < nextYear)){
+            throw new IllegalArgumentException("Invalid year" + yearOfBirth 
+                    +". Must be between 1903 and " + nextYear);
+        }
+        return yearOfBirth;
+    }
+    
+    private String checkName(String name){
+        if(!(name.matches("^[A-Z][a-z]*$"))){
+            throw new IllegalArgumentException("Invalid name format ...");
+        }
+        return name;
+    }
+    
     public Runner(String name) {
         this.name = name;
         //this.racerNumber=number;
@@ -27,13 +60,19 @@ public class Runner implements Comparable<Runner>{
     public String getName() {
         return name;
     }
+    
+    public void setGender(Gender gender){
+        this.gender = gender;
+    }
 
     @Override
     public String toString() {
         return "name=" + name + ", " + 
                "startTime=" + startTime + ", " +
                "finishTime=" + finishTime + ", " +
-               "runningTime=" + calculateTime();
+               "runningTime=" + calculateTime() + "," +
+               "categorie=" + category.getDescription() + "," +
+               "racer number=" + racerNumber;
     }
     public double calculateTime() {
         return finishTime - startTime;
@@ -64,7 +103,7 @@ public class Runner implements Comparable<Runner>{
         if (radek == null) { //konec souboru
             return null;
         }
-        String[] dataStr = radek.split(" ");
+        String[] dataStr = radek.split(" "); //regex "[,;]"
         int runnerNumber = Integer.parseInt(dataStr[0]);
         String name = dataStr[1];
         Runner bezec = new Runner(name, runnerNumber);
